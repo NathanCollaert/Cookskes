@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html style="color-scheme: dark;">
+
+<head>
+    <style>
+        body {
+            font-family: 'Public Sans', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+            font-weight: 400;
+            height: 561px;
+            width: 564px;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .app {
+            background-color: #191d21;
+        }
+
+        .navBaseContainer {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        nav {
+            display: block;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navList {
+            display: flex;
+            padding: 8px;
+            background-color: #1b2024;
+            margin: 0;
+            gap: 2px;
+        }
+
+        .navRoot {
+            position: relative;
+            max-width: 25%;
+            cursor: pointer;
+            user-select: none;
+            outline: none;
+            display: flex;
+            flex-basis: 0;
+            flex-grow: 1;
+            height: 52px;
+            max-width: 83.5px;
+        }
+
+        .navWrapper {
+            display: flex;
+            flex-basis: 0px;
+            flex-direction: column;
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: #81919e00;
+            height: 100%;
+            padding: 4px 8px;
+            box-sizing: border-box;
+            transition: background-color 0.12s ease-out;
+        }
+
+        .navWrapper:hover {
+            background-color: #81919e14;
+        }
+
+        .navWrapper.active {
+            background-color: #81919e29;
+        }
+
+        .navContainer {
+            display: flex;
+            flex-direction: column;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .navIcon {
+            display: flex;
+            box-sizing: border-box;
+            stroke: none;
+            width: 24px;
+            min-width: 24px;
+            height: 24px;
+        }
+
+        .navText {
+            color: #f6f9fa;
+            font-family: "Public Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 400;
+            font-size: 11px;
+            line-height: 12px;
+            letter-spacing: 0em;
+            text-transform: none;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        .tabPanel {
+            height: calc(100% - 68px);
+        }
+
+        .tabWrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .popupTabsBar {
+            display: flex;
+            padding: 0px 8px;
+            background-color: #1b2024;
+        }
+
+        .tabListMini {
+            display: flex;
+            flex-grow: 1;
+            overflow: auto hidden;
+            gap: 2px;
+            background-color: #62728040;
+            padding: 2px;
+            border-radius: 10px;
+            scrollbar-width: thin;
+        }
+
+        .tabMiniButton {
+            color: #f1f4f6e6;
+            background-color: transparent;
+            text-wrap: nowrap;
+            white-space-collapse: collapse;
+            overflow: hidden;
+            text-align: center;
+            border-radius: 8px;
+            min-width: 65px;
+            padding: 7px 12px;
+            cursor: pointer;
+            font-family: "Public Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: 0em;
+            text-transform: none;
+            height: 32px;
+            transition: color 0.15s ease-out, background-color 0.15s ease-out;
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 0px 3px 0px;
+            min-width: fit-content;
+            border: none;
+        }
+
+        .tabMiniButton:hover {
+            background-color: #62728080;
+        }
+
+        .tabMiniButton.active {
+            color: #7ac7cf;
+            background-color: #212529;
+        }
+
+        .tabContentBoxWrapper {
+            background-color: #191d21;
+            width: 100%;
+        }
+
+        .tabContentBoxContainer {
+            align-content: start;
+            display: flex;
+            flex-flow: wrap;
+            width: auto;
+            overflow: hidden;
+            padding: 8px;
+            box-sizing: border-box;
+            gap: 8px;
+            opacity: 1;
+        }
+
+        .tabContentBox {
+            display: flex;
+            flex-direction: column;
+            background-color: #212529;
+            border-radius: 8px;
+            border-color: #f6f9fa1a;
+            border-style: solid;
+            border-width: 1px;
+            font-family: "Public Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 20px;
+            letter-spacing: 0em;
+            text-transform: none;
+            color: #f1f4f6e6;
+            padding: 8px;
+            gap: 8px;
+            box-sizing: border-box;
+            flex-grow: 1;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            height: 441px;
+        }
+
+        .tabContentList {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tabContentListHeader {
+            display: flex;
+            -webkit-box-pack: justify;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+
+        .tabContentListHeaderName {
+            color: #96a7b0d9;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 12px;
+            line-height: 16px;
+            font-weight: 500;
+        }
+
+        .tabContentListHeaderItems {
+            color: #96a7b0d9;
+            font-family: "Public Sans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 12px;
+            letter-spacing: 0em;
+            text-transform: none;
+        }
+
+        .tabContentList li {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="navBaseContainer">
+            <nav>
+                <ul class="navList">
+                    <li class="navRoot">
+                        <div id="startBtn" class="navWrapper">
+                            <div class="navContainer">
+                                <img src="assets/play-circle.svg" class="navIcon">
+                                <p class="navText">Start Bot</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="navRoot">
+                        <div id="stopBtn" class="navWrapper">
+                            <div class="navContainer">
+                                <img src="assets/stop-circle.svg" class="navIcon">
+                                <p class="navText">Stop Bot</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="navRoot">
+                        <div id="popWrinklersBtn" class="navWrapper">
+                            <div class="navContainer">
+                                <img src="assets/ban-bug.svg" class="navIcon">
+                                <p class="navText">Pop Wrinklers</p>
+                            </div>
+                        </div>
+                        <div id="openDragonBtn" class="navWrapper">
+                            <div class="navContainer">
+                                <img src="assets/dragon.svg" class="navIcon">
+                                <p class="navText">Open Dragon</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="tabPanel">
+                <div class="tabWrapper">
+                    <div class="popupTabsBar">
+                        <div id="tabs" class="tabListMini"></div>
+                    </div>
+                    <div class="tabContentBoxWrapper">
+                        <div class="tabContentBoxContainer">
+                            <div class="tabContentBox">
+                                <div id="logHeader" class="tabContentListHeader"></div>
+                                <ul id="logList" class="tabContentList"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+</body>
+
+</html>

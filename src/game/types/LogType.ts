@@ -1,0 +1,16 @@
+export enum LogType {
+    ALL = "All",
+    BUILDINGS = "Buildings",
+    UPGRADES = "Upgrades",
+    SEASONS = "Seasons",
+    FORTUNES = "Fortunes",
+    SHIMMERS = "Shimmers",
+    DRAGON = "Dragon",
+    SANTA = "Santa",
+    SUGAR_LUMPS = "Sugar Lumps",
+    WRINKLER = "Wrinkler",
+    GRIMOIRE = "Grimoire",
+    PANTHEON = "Pantheon",
+    GARDEN = "Garden",
+    STOCK_MARKET = "Stock Market",
+}
