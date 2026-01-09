@@ -15,7 +15,7 @@ export class popWrinklerAction extends Action {
     private wrinkler: Wrinkler | null = null;
 
     protected canExecute(): boolean {
-        if (!game.Upgrades["One mind"].bought) return false;
+        if (game.Upgrades["One mind"].bought === 0) return false;
         if (!isSeasonActive(Season.HALLOWEEN)) return false;
         if (unlockedAllUpgrades(HALLOWEEN_COOKIES)) return false;
         if (game.wrinklers.filter(w => w.close === 1).length < game.getWrinklersMax()) return false;
@@ -33,6 +33,7 @@ export class popWrinklerAction extends Action {
     }
 
     protected log(): void {
+        // TODO: sometimes logs 5 times
         if (this.wrinkler)
             LogEngine.addLog(LogType.WRINKLER, `Popped wrinkler | ${formatNumber(this.wrinkler.sucked)}`)
     }

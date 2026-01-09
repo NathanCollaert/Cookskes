@@ -10,46 +10,48 @@ export class PetDragonAction extends Action {
     private drops = ['Dragon scale', 'Dragon claw', 'Dragon fang', 'Dragon teddy bear'];
     private ownedBefore: string[] = [];
     private gottenDrop: string | null = null;
+    private clicksDone: number = 0;
 
     protected canExecute(): boolean {
-        if (!game.Has('Pet the dragon') && game.dragonLevel < 8) return false;
+        if (game.Has('Pet the dragon') === 0) return false;
+        if (game.dragonLevel < 8) return false;
 
         this.ownedBefore = this.checkForDrops();
-        return this.ownedBefore.length < this.drops.length;
+        if (this.ownedBefore.length >= this.drops.length) return false;
+
+        return true;
     }
 
     protected executeAction(): boolean {
-        let i: number = 0;
         let ownedAfter: string[] = [];
 
-        // Open dragon UI
         game.specialTab = "dragon";
-        while (i < 1000 && !this.gottenDrop) {
-            // Pet the dragon
+        while (this.clicksDone < 1000) {
             game.ClickSpecialPic();
-            // Check for new drops
             ownedAfter = this.checkForDrops();
             if (ownedAfter.length > this.ownedBefore.length) {
                 const newDrops = ownedAfter.filter(drop => !this.ownedBefore.includes(drop));
                 this.gottenDrop = newDrops[0];
+                break;
             }
-            i++;
+            this.clicksDone++;
         }
 
         return true;
     }
 
     private checkForDrops(): string[] {
-        return this.drops.filter(drop => game.Has(drop));
+        return this.drops.filter(drop => game.Upgrades[drop].unlocked === 1);
     }
 
     protected log(): void {
-        LogEngine.addLog(LogType.DRAGON, `Petted the dragon | Gotten drop - ${this.gottenDrop || 'None'}`);
+        LogEngine.addLog(LogType.DRAGON, `Petted the dragon | ${this.gottenDrop || 'No drop'} | ${this.clicksDone} clicks`);
 
     }
 
     protected finalize(): void {
         this.gottenDrop = null;
         this.ownedBefore = [];
+        this.clicksDone = 0;
     }
 }

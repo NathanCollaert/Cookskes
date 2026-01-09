@@ -1,5 +1,6 @@
 import { game } from "../../../index";
 import { LogEngine } from "../../../logging/LogEngine";
+import { nextSantaLevelCost } from "../../../utils/Game";
 import { LogType } from "../../types/LogType";
 import { Action } from "../Action";
 
@@ -9,8 +10,9 @@ export class UpgradeClausAction extends Action {
     public shouldExecuteImmediately: boolean = true;
 
     protected canExecute(): boolean {
-        if (!game.Upgrades["A festive hat"].bought) return false;
-        if (game.Upgrades["Santa's dominion"].unlocked) return false;
+        if (game.Upgrades["A festive hat"].bought === 0) return false;
+        if (game.Upgrades["Santa's dominion"].unlocked === 1) return false;
+        if (nextSantaLevelCost() > game.cookies) return false;
         return true;
     }
 

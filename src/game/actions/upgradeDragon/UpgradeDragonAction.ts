@@ -10,7 +10,7 @@ export class UpgradeDragonAction extends Action {
     public shouldExecuteImmediately: boolean = true;
 
     protected canExecute(): boolean {
-        if (!game.Upgrades["A crumbly egg"].bought) return false;
+        if (game.Upgrades["A crumbly egg"].bought === 0) return false;
         if (game.dragonLevel >= game.dragonLevels.length - 1) return false;
         if (!game.dragonLevels[game.dragonLevel].cost()) return false;
         return true;

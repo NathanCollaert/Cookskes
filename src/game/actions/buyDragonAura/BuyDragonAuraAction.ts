@@ -14,7 +14,7 @@ export class BuyDragonAuraAction extends Action {
     private upgradedDragonAura: DragonAura[] = [];
 
     protected canExecute(): boolean {
-        if (!game.Upgrades["A crumbly egg"].bought) return false;
+        if (game.Upgrades["A crumbly egg"].bought === 0) return false;
         return true;
     }
 

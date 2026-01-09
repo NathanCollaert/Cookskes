@@ -5,7 +5,7 @@ import { Building } from "../types/Building";
 import { Recommendation, RecommendationType } from "../types/Recommendation";
 
 export class ShopEngine {
-    calculate(): Recommendation[] {
+    public calculate(): Recommendation[] {
         const out: Recommendation[] = [];
 
         for (const k in game.Objects) {
@@ -57,7 +57,7 @@ export class ShopEngine {
     }
 
     // TODO: are we sure we want to do this even if dragon is not unlocked yet?
-    checkDragonEfficiency(buildingName: string): boolean {
+    private checkDragonEfficiency(buildingName: string): boolean {
         // determine if buying the building is efficient based on sacrifices to krumblor
         if (!game.Achievements['Here be dragon'].won)
             return true;  // don't limit when first fully training

@@ -6,6 +6,7 @@ import { Upgrade } from "./Upgrade";
 import { Wrinkler } from "./Wrinkler";
 
 export interface Game {
+    lumps: number;
     BuildingsOwned: number;
     UpgradesOwned: number;
     lumpRipeAge: number;
@@ -44,7 +45,7 @@ export interface Game {
     ToggleSpecialMenu(arg0: number): void;
     ClickSpecialPic(): void;
     HasUnlocked(drop: string): boolean;
-    Has(drop: string): boolean;
+    Has(drop: string): 0 | 1;
     SetDragonAura(arg0: number, arg1: number): void;
     ConfirmPrompt(): void;
     UpgradeDragon(): void;

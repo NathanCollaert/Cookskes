@@ -22,6 +22,7 @@ export class ClickFortuneCookieAction extends Action {
     }
 
     protected log(): void {
+        // TODO: clickedFortune sometimes undefined
         LogEngine.addLog(LogType.FORTUNES, `Clicked fortune cookie: ${(this.clickedFortune as Fortune).sub.name}`);
     }
 

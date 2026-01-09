@@ -1,7 +1,7 @@
 export enum Season {
     CHRISTMAS = "Festive biscuit",
     HALLOWEEN = "Ghostly biscuit",
-    VALENTINES = "Lovestick biscuit",
+    VALENTINES = "Lovesick biscuit",
     FOOLS = "Fool's biscuit",
     EASTER = "Bunny biscuit"
 }

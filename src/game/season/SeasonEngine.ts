@@ -5,7 +5,7 @@ import { Season } from "../types/Season";
 export class SeasonEngine {
     public calculateOptimalSeason(): Season {
         // TODO: do not care about christmas cookies unless making slow progress
-        if (!game.Upgrades["A festive hat"].bought && !unlockedAllUpgrades(CHRISTMAS_COOKIES)) {
+        if (game.Upgrades["A festive hat"].bought === 0 || !unlockedAllUpgrades(CHRISTMAS_COOKIES)) {
             return Season.CHRISTMAS;
         }
 
