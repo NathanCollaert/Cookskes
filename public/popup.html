@@ -213,7 +213,7 @@
             overflow-x: hidden;
             overflow-y: auto;
             scrollbar-width: thin;
-            height: 441px;
+            height: 430px;
         }
 
         .tabContentList {
@@ -279,6 +279,14 @@
                         </div>
                     </li>
                     <li class="navRoot">
+                        <div id="clearLogsBtn" class="navWrapper">
+                            <div class="navContainer">
+                                <img src="assets/stop-circle.svg" class="navIcon">
+                                <p class="navText">Clear Logs</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="navRoot">
                         <div id="popWrinklersBtn" class="navWrapper">
                             <div class="navContainer">
                                 <img src="assets/ban-bug.svg" class="navIcon">
@@ -301,7 +309,7 @@
                     </div>
                     <div class="tabContentBoxWrapper">
                         <div class="tabContentBoxContainer">
-                            <div class="tabContentBox">
+                            <div id="logScrollContainer" class="tabContentBox">
                                 <div id="logHeader" class="tabContentListHeader"></div>
                                 <ul id="logList" class="tabContentList"></ul>
                             </div>

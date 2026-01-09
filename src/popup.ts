@@ -1,12 +1,16 @@
 import { BotCommand } from "./game/types/BotCommand";
 import { LogType } from "./game/types/LogType";
 
+const ROW_HEIGHT = 20;
+
 const tabs = document.getElementById("tabs")!;
+const scrollContainer = document.getElementById("logScrollContainer")!;
 const list = document.getElementById("logList")!;
 const logHeader = document.getElementById("logHeader")!;
 
 let logs: { [key in LogType]?: { timeStamp: Date, message: string }[] } = {};
 let activeType: LogType = LogType.ALL;
+let sortedEntries: { timeStamp: Date; message: string }[] = [];
 
 init();
 
@@ -51,9 +55,11 @@ function renderTabs() {
 }
 
 function renderLogs() {
-    list.innerHTML = "";
     logHeader.innerHTML = "";
+
     const entries = activeType === LogType.ALL ? Object.values(logs).flat() : logs[activeType] || [];
+
+    sortedEntries = entries.slice().sort((a, b) => b.timeStamp.getTime() - a.timeStamp.getTime());
 
     const headerName = document.createElement('span');
     const headerItems = document.createElement('span');
@@ -61,15 +67,57 @@ function renderLogs() {
     headerName.classList.add("tabContentListHeaderName");
     headerItems.textContent = `${entries.length.toString()} items`;
     headerItems.classList.add("tabContentListHeaderItems");
-    logHeader.append(headerName);
-    logHeader.append(headerItems);
+    logHeader.append(headerName, headerItems);
 
-    for (const msg of entries.sort((a, b) => b.timeStamp?.getTime() - a.timeStamp?.getTime())) {
+    setupVirtualScroll();
+    renderVirtualRows();
+}
+
+function onScroll() {
+    requestAnimationFrame(renderVirtualRows);
+}
+
+let minRendered = Infinity;
+let maxRendered = -1;
+function renderVirtualRows() {
+    const scrollTop = scrollContainer.scrollTop;
+    const viewportHeight = scrollContainer.clientHeight;
+
+    const firstVisible = Math.floor(scrollTop / ROW_HEIGHT);
+    const visibleCount = Math.ceil(viewportHeight / ROW_HEIGHT);
+    const newStart = Math.max(0, firstVisible);
+    const newEnd = Math.min(
+        sortedEntries.length,
+        firstVisible + visibleCount
+    );
+
+    const startIndex = Math.min(minRendered, newStart);
+    const endIndex = Math.max(maxRendered, newEnd);
+
+    if (startIndex === minRendered && endIndex === maxRendered) return;
+
+    minRendered = startIndex;
+    maxRendered = endIndex;
+
+    for (let i = startIndex; i < endIndex; i++) {
+        if (list.children[i - startIndex]) continue;
+
+        const msg = sortedEntries[i];
         const li = document.createElement("li");
-        li.textContent = `[${new Date(msg.timeStamp).toLocaleTimeString()}] ${msg.message}`;
+        li.textContent = `[${msg.timeStamp.toLocaleTimeString()}] ${msg.message}`;
         li.title = msg.message;
         list.appendChild(li);
     }
+}
+
+function setupVirtualScroll() {
+    scrollContainer.removeEventListener("scroll", onScroll);
+    scrollContainer.addEventListener("scroll", onScroll);
+
+    minRendered = Infinity;
+    maxRendered = -1;
+    list.innerHTML = "";
+    list.style.transform = "";
 }
 
 document.getElementById("startBtn")!.onclick = (event) => {
@@ -86,6 +134,10 @@ document.getElementById("stopBtn")!.onclick = (event) => {
     const startButton = document.getElementById("startBtn");
     stopButton.classList.add('active');
     startButton?.classList.remove('active');
+};
+
+document.getElementById("clearLogsBtn")!.onclick = () => {
+    sendCommand(BotCommand.CLEAR_LOGS);
 };
 
 document.getElementById("popWrinklersBtn")!.onclick = () => {
@@ -113,5 +165,6 @@ chrome.storage.onChanged.addListener((changes, area) => {
     if (!changes.logs) return;
 
     parseLogs(changes.logs.newValue ?? {});
+    renderTabs();
     renderLogs();
 });
