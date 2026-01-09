@@ -8,6 +8,7 @@ import { ClickReindeerAction } from "./game/actions/clickReindeer/ClickReindeerA
 import { HarvestSugarLumpAction } from "./game/actions/harvestSugarLump/HarvestSugarLumpAction";
 import { PetDragonAction } from "./game/actions/petDragon/PetDragonAction";
 import { popWrinklerAction } from "./game/actions/popWrinkler/PopWrinklerAction";
+import { SpendSugarLumpAction } from "./game/actions/spendSugarLump/SpendSugarLumpAction";
 import { SwitchSeasonAction } from "./game/actions/switchSeason/SwitchSeasonAction";
 import { UpgradeClausAction } from "./game/actions/upgradeClaus/UpgradeClausAction";
 import { UpgradeDragonAction } from "./game/actions/upgradeDragon/UpgradeDragonAction";
@@ -29,6 +30,9 @@ window.addEventListener("message", e => {
         case BotCommand.STOP_BOT:
             stop();
             break;
+        // case BotCommand.CLEAR_LOGS:
+        //     clearLogs();
+        //     break;
         case BotCommand.POP_WRINKLERS:
             game.CollectWrinklers();
             break;
@@ -38,13 +42,12 @@ window.addEventListener("message", e => {
     }
 });
 
-export function start(): void {
+function start(): void {
     if (running) return;
 
     initilizeActions();
 
     running = true;
-    console.log("Bot started");
 }
 
 function applyInterval(fn: () => void, interval: number, shouldExecuteImmediately: boolean): void {
@@ -53,7 +56,7 @@ function applyInterval(fn: () => void, interval: number, shouldExecuteImmediatel
 }
 
 function initilizeActions(): void {
-    [new ClickCookieAction(), new ClickGoldenCookie(), new ClickReindeerAction(), new BuyRecommendationAction(), new ClickFortuneCookieAction(), new PetDragonAction(), new UpgradeDragonAction(), new SwitchSeasonAction(), new UpgradeClausAction(), new HarvestSugarLumpAction(), new BuyDragonAuraAction(), new popWrinklerAction()]
+    [new ClickCookieAction(), new ClickGoldenCookie(), new ClickReindeerAction(), new BuyRecommendationAction(), new ClickFortuneCookieAction(), new PetDragonAction(), new UpgradeDragonAction(), new SwitchSeasonAction(), new UpgradeClausAction(), new HarvestSugarLumpAction(), new BuyDragonAuraAction(), new popWrinklerAction(), new SpendSugarLumpAction()]
         .forEach((action: Action) => {
             if (action.enabled && action.interval > 0) {
                 applyInterval(action.execute.bind(action), action.interval, action.shouldExecuteImmediately);
@@ -61,9 +64,8 @@ function initilizeActions(): void {
         });
 }
 
-export function stop(): void {
+function stop(): void {
     timers.forEach(clearInterval);
     timers = [];
     running = false;
-    console.log("Bot stopped");
 }

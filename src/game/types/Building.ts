@@ -4,6 +4,8 @@ export interface Building {
     amount: number;
     price: number;
     storedCps: number;
+    level: number;
     buy(qty: number): void;
     tooltip(): string;
+    levelUp(): void;
 }

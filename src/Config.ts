@@ -9,4 +9,5 @@ export const Config = {
     dragonAuraInterval: 10,
     dragonUpgradeInterval: 10,
     popWrinklerInterval: 10,
+    spendSugarLumpInterval: 10
 };

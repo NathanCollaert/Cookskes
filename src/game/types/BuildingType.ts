@@ -1,0 +1,22 @@
+export enum BuildingType {
+    CURSOR = "Cursor",
+    GRANDMA = "Grandma",
+    FARM = "Farm",
+    MINE = "Mine",
+    FACTORY = "Factory",
+    BANK = "Bank",
+    TEMPLE = "Temple",
+    WIZARD_TOWER = "Wizard tower",
+    SHIPMENT = "Shipment",
+    ALCHEMY_LAB = "Alchemy lab",
+    PORTAL = "Portal",
+    TIME_MACHINE = "Time machine",
+    ANTIMATTER_CONDENSER = "Antimatter condenser",
+    PRISM = "Prism",
+    CHANCEMAKER = "Chancemaker",
+    FRACTAL_ENGINE = "Fractal engine",
+    JAVASCRIPT_CONSOLE = "Javascript console",
+    IDLEVERSE = "Idleverse",
+    CORTEX_BAKER = "Cortex baker",
+    YOU = "You"
+}
