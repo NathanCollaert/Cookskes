@@ -13,7 +13,7 @@ interface TowerMinigame {
 
 export abstract class SpellCast {
     protected readonly minigame?: TowerMinigame;
-    protected readonly spell?: Spell;
+    public readonly spell?: Spell;
 
     protected abstract canCastExtra(): boolean;
 
@@ -27,11 +27,11 @@ export abstract class SpellCast {
     }
 
     public cast(): boolean {
-        if (!this.isCastable()) return false;
+        if (!this.canCast()) return false;
         return this.minigame!.castSpell(this.spell!);
     }
 
-    private isCastable(): boolean {
+    public canCast(): boolean {
         if (!this.minigame || !this.spell) return false;
         if (!this.hasEnoughMagic()) return false;
         return this.canCastExtra();

@@ -23,6 +23,6 @@ export class CastSpellAction extends Action {
     }
 
     protected log(): void {
-        LogEngine.addLog(LogType.GRIMOIRE, `Cast spell: ${this.spellCast.spell.name}`);
+        LogEngine.addLog(LogType.GRIMOIRE, `Cast spell: ${this.spellCast.spell!.name}`);
     }
 }
