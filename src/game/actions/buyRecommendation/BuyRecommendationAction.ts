@@ -27,7 +27,7 @@ export class BuyRecommendationAction extends Action {
     protected canExecute(): boolean {
         const currentGameState = this.getGameState();
         if ((this.topRecommendation === null || this.lastGameState !== currentGameState)) {
-            const recommendations = this.recommendationEngine.calculate();
+            const recommendations = this.recommendationEngine.calculateOptimalBuy();
             this.topRecommendation = recommendations.length > 0 ? recommendations[0] : null;
         }
 
@@ -38,7 +38,7 @@ export class BuyRecommendationAction extends Action {
         if (this.topRecommendation?.type === RecommendationType.building) {
             (this.topRecommendation.gameObj as Building).buy(1);
         } else if (this.topRecommendation?.type === RecommendationType.upgrade) {
-            (this.topRecommendation.gameObj as Upgrade).buy();
+            (this.topRecommendation.gameObj as Upgrade).buy(true);
         }
 
         return true;

@@ -5,7 +5,7 @@ import { Building } from "../types/Building";
 import { Recommendation, RecommendationType } from "../types/Recommendation";
 
 export class ShopEngine {
-    public calculate(): Recommendation[] {
+    public calculateOptimalBuy(): Recommendation[] {
         const out: Recommendation[] = [];
 
         for (const k in game.Objects) {
@@ -14,7 +14,7 @@ export class ShopEngine {
         }
 
         for (const u of game.UpgradesInStore) {
-            if (u.canBuy() && u.pool !== "toggle" && u.id !== 69) {
+            if (u.canBuy() && u.pool !== "toggle") {
                 out.push({
                     type: RecommendationType.upgrade,
                     name: u.name,
@@ -119,7 +119,7 @@ export class ShopEngine {
     }
 
     public showTopRecommendations(count: number): void {
-        const recommendations = this.calculate();
+        const recommendations = this.calculateOptimalBuy();
 
         if (recommendations.length === 0) {
             console.log("No recommendations available");

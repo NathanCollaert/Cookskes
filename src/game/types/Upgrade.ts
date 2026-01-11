@@ -3,6 +3,6 @@ export interface Upgrade {
     name: string;
     pool: string;
     canBuy(): boolean;
-    buy(): void;
+    buy(byPass?: boolean): void;
     getPrice(): number;
 }
