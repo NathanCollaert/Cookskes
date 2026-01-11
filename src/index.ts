@@ -10,6 +10,7 @@ import { PetDragonAction } from "./game/actions/petDragon/PetDragonAction";
 import { popWrinklerAction } from "./game/actions/popWrinkler/PopWrinklerAction";
 import { SpendSugarLumpAction } from "./game/actions/spendSugarLump/SpendSugarLumpAction";
 import { SwitchSeasonAction } from "./game/actions/switchSeason/SwitchSeasonAction";
+import { ToggleElderPledgeAction } from "./game/actions/toggleElderPledge/ToggleElderPledgeAction";
 import { UpgradeClausAction } from "./game/actions/upgradeClaus/UpgradeClausAction";
 import { UpgradeDragonAction } from "./game/actions/upgradeDragon/UpgradeDragonAction";
 import { BotCommand } from "./game/types/BotCommand";
@@ -56,7 +57,7 @@ function applyInterval(fn: () => void, interval: number, shouldExecuteImmediatel
 }
 
 function initilizeActions(): void {
-    [new ClickCookieAction(), new ClickGoldenCookie(), new ClickReindeerAction(), new BuyRecommendationAction(), new ClickFortuneCookieAction(), new PetDragonAction(), new UpgradeDragonAction(), new SwitchSeasonAction(), new UpgradeClausAction(), new HarvestSugarLumpAction(), new BuyDragonAuraAction(), new popWrinklerAction(), new SpendSugarLumpAction()]
+    [new ClickCookieAction(), new ClickGoldenCookie(), new ClickReindeerAction(), new BuyRecommendationAction(), new ClickFortuneCookieAction(), new PetDragonAction(), new UpgradeDragonAction(), new SwitchSeasonAction(), new UpgradeClausAction(), new HarvestSugarLumpAction(), new BuyDragonAuraAction(), new popWrinklerAction(), new SpendSugarLumpAction(), new ToggleElderPledgeAction()]
         .forEach((action: Action) => {
             if (action.enabled && action.interval > 0) {
                 applyInterval(action.execute.bind(action), action.interval, action.shouldExecuteImmediately);
