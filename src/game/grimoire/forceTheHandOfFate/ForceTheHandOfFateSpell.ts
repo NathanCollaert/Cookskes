@@ -1,27 +1,27 @@
 import { game } from "../../../index";
-import { Spell } from "../../types/Spell";
+import { SpellType } from "../../types/SpellType";
 import { SpellCast } from "../SpellCast";
 
 export class ForceTheHandOfFateSpell extends SpellCast {
-    public spell: Spell;
-
     constructor() {
-        super();
-        this.spell = this.minigame.spells["hand of fate"];
+        super(SpellType.HAND_OF_FATE);
     }
 
-    canCast(): boolean {
-        if (this.minigame.magic !== this.minigame.magicM) return false;
+    protected canCastExtra(): boolean {
+        const { magic, magicM } = this.minigame!;
 
-        // Simple Combo
-        const multCpS = Object.values(game.buffs).filter(buff => buff.multCpS && buff.multCpS > 0).reduce((mult, buff) => mult * buff.multCpS, 1);
-        const multClick = Object.values(game.buffs).filter(buff => buff.multClick && buff.multClick > 0).reduce((mult, buff) => mult * buff.multClick, 1);
-        if (multCpS <= 1 && multClick <= 1) return false;
+        if (magic !== magicM) return false;
 
-        return true;
-    }
+        const buffs = Object.values(game.buffs);
 
-    castAction(): boolean {
-        return this.minigame.castSpell(this.spell);
+        let multCpS = 1;
+        let multClick = 1;
+
+        for (const buff of buffs) {
+            if (buff.multCpS > 0) multCpS *= buff.multCpS;
+            if (buff.multClick > 0) multClick *= buff.multClick;
+        }
+
+        return multCpS > 1 || multClick > 1;
     }
 }
