@@ -9,7 +9,7 @@ import { Action } from "../Action";
 
 export class SpendSugarLumpAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.spendSugarLumpInterval;
+    public interval: number = Config.intervals.spendSugarLumpInterval;
     public shouldExecuteImmediately: boolean = true;
     private sugarLumpEgine: SugarLumpEngine;
     private nextUpgrade: Building | null = null;

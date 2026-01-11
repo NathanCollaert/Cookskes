@@ -13,7 +13,7 @@ import { Action } from "../Action";
 // TODO: fix double buying bug when buying an upgrade (also multiple logs)
 export class BuyRecommendationAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.buyInterval;
+    public interval: number = Config.intervals.buyInterval;
     public shouldExecuteImmediately: boolean = true;
     private recommendationEngine: ShopEngine;
     private topRecommendation: Recommendation | null = null;
@@ -31,7 +31,10 @@ export class BuyRecommendationAction extends Action {
             this.topRecommendation = recommendations.length > 0 ? recommendations[0] : null;
         }
 
-        return this.topRecommendation !== null && this.topRecommendation.price <= game.cookies;
+        if (this.topRecommendation === null) return false;
+        if (this.topRecommendation.price > game.cookies) return false;
+
+        return true;
     }
 
     protected executeAction(): boolean {

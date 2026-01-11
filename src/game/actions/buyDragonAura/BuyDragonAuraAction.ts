@@ -9,7 +9,7 @@ import { Action } from "../Action";
 
 export class BuyDragonAuraAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.dragonAuraInterval;
+    public interval: number = Config.intervals.dragonAuraInterval;
     public shouldExecuteImmediately: boolean = true;
     private upgradedDragonAura: DragonAura[] = [];
 

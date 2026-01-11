@@ -7,7 +7,7 @@ import { Action } from "../Action";
 
 export class ClickFortuneCookieAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.fortuneInterval;
+    public interval: number = Config.intervals.fortuneInterval;
     public shouldExecuteImmediately: boolean = true;
     private clickedFortune: 0 | Fortune = 0;
 

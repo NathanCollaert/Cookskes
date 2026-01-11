@@ -6,7 +6,7 @@ import { Action } from "../Action";
 
 export class UpgradeDragonAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.dragonUpgradeInterval;
+    public interval: number = Config.intervals.dragonUpgradeInterval;
     public shouldExecuteImmediately: boolean = true;
 
     protected canExecute(): boolean {

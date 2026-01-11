@@ -6,7 +6,7 @@ import { Action } from "../Action";
 
 export class ClickReindeerAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.goldenCheckInterval;
+    public interval: number = Config.intervals.goldenCheckInterval;
     public shouldExecuteImmediately: boolean = true;
     private poppedReindeer: boolean = false;
 

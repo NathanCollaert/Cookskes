@@ -8,7 +8,7 @@ import { Action } from "../Action";
 
 export class ToggleElderPledgeAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.buyInterval;
+    public interval: number = Config.intervals.buyInterval;
     public shouldExecuteImmediately: boolean = true;
     private readonly ELDER_PLEDGE: number = 74;
     private upgrade: any | null = null;

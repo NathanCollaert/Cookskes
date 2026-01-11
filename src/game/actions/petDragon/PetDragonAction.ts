@@ -1,3 +1,4 @@
+import { Config } from "../../../Config";
 import { game } from "../../../index";
 import { LogEngine } from "../../../logging/LogEngine";
 import { LogType } from "../../types/LogType";
@@ -5,12 +6,12 @@ import { Action } from "../Action";
 
 export class PetDragonAction extends Action {
     public enabled: boolean = true;
-    public interval: number = 900000; // 15 minutes
+    public interval: number = Config.intervals.petDragonInterval;
     public shouldExecuteImmediately: boolean = true;
     private drops = ['Dragon scale', 'Dragon claw', 'Dragon fang', 'Dragon teddy bear'];
     private ownedBefore: string[] = [];
     private gottenDrop: string | null = null;
-    private clicksDone: number = 0;
+    private clicksDone: number = 1;
 
     protected canExecute(): boolean {
         if (game.Has('Pet the dragon') === 0) return false;
@@ -26,7 +27,7 @@ export class PetDragonAction extends Action {
         let ownedAfter: string[] = [];
 
         game.specialTab = "dragon";
-        while (this.clicksDone < 1000) {
+        while (this.clicksDone <= 1000) {
             game.ClickSpecialPic();
             ownedAfter = this.checkForDrops();
             if (ownedAfter.length > this.ownedBefore.length) {

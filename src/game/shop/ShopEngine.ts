@@ -1,9 +1,10 @@
 import Decimal from "../../../node_modules/decimal.js/decimal";
 import { game } from "../../index";
-import { formatNumber, formatTime, parseFormattedNumber } from "../../utils/Formatting";
+import { parseFormattedNumber } from "../../utils/Formatting";
 import { Building } from "../types/Building";
 import { Recommendation, RecommendationType } from "../types/Recommendation";
 
+// TODO - FEAT: when season upgrade costs 1 minute to buy, wait one minute before buying other things.
 export class ShopEngine {
     public calculateOptimalBuy(): Recommendation[] {
         const out: Recommendation[] = [];
@@ -116,25 +117,5 @@ export class ShopEngine {
         // Reindeer (Reindeer appear twice as frequently., Reindeer are twice as slow., etc.)
         // Cheaper (All buildings are 1% cheaper., All upgrades are 1% cheaper., etc.)
         // Seasonal Misc
-    }
-
-    public showTopRecommendations(count: number): void {
-        const recommendations = this.calculateOptimalBuy();
-
-        if (recommendations.length === 0) {
-            console.log("No recommendations available");
-            return;
-        }
-
-        console.log(`=== Top ${count} Recommendations ===`);
-        console.log(`Current CpS: ${formatNumber(game.cookiesPs)} | Bank: ${formatNumber(game.cookies)}`);
-        console.log('---');
-
-        for (let i = 0; i < Math.min(count, recommendations.length); i++) {
-            const rec = recommendations[i];
-            const affordable = game.cookies >= rec.price ? '✓' : '✗';
-            console.log(`${i + 1}. [${affordable}] ${rec.type === RecommendationType.building ? '🏢' : '⬆️'} ${rec.name}`);
-            console.log(`   Price: ${formatNumber(rec.price)} | +${formatNumber(rec.cpsDiff)} CpS | Payback: ${formatTime(rec.paybackTime)}`);
-        }
     }
 }

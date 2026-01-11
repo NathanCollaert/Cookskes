@@ -6,10 +6,9 @@ import { DragonAura } from "../../types/DragonAura";
 import { LogType } from "../../types/LogType";
 import { Action } from "../Action";
 
-// TODO: fix 
 export class HarvestSugarLumpAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.harvestSugarLumpInterval;
+    public interval: number = Config.intervals.harvestSugarLumpInterval;
     public shouldExecuteImmediately: boolean = true;
     private HOUR_IN_MS: number = 3600000;
     private lumpAge: number = 0;

@@ -9,7 +9,7 @@ import { Action } from "../Action";
 
 export class SwitchSeasonAction extends Action {
     public enabled: boolean = true;
-    public interval: number = Config.seasonInterval;
+    public interval: number = Config.intervals.seasonInterval;
     public shouldExecuteImmediately: boolean = true;
     private seasonEngine: SeasonEngine;
     private optimalSeason: Season | null = null;
