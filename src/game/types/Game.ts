@@ -1,11 +1,14 @@
 import { Buff } from "./Buff";
 import { Fortune } from "./Fortune";
+import { MinigameType } from "./MinigameType";
 import { Shimmer } from "./Shimmer";
 import { Ticker } from "./Ticker";
 import { Upgrade } from "./Upgrade";
 import { Wrinkler } from "./Wrinkler";
 
 export interface Game {
+    baseSeason: string;
+    prestige: number;
     lumps: number;
     BuildingsOwned: number;
     UpgradesOwned: number;
@@ -35,6 +38,7 @@ export interface Game {
     UpgradesById: any;
     santaLevel: number;
     wrinklers: Wrinkler[];
+    isMinigameReady(minigame: MinigameType): boolean;
     getWrinklersMax(): number;
     canLumps(): boolean;
     clickLump(): void;

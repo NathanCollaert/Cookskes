@@ -1,3 +1,7 @@
+import { BuildingType } from "../game/types/BuildingType";
+import { God } from "../game/types/God";
+import { MinigameType } from "../game/types/MinigameType";
+import { PantheonSlot } from "../game/types/PantheonSlot";
 import { Season, seasonFromValue } from "../game/types/Season";
 import { Spell } from "../game/types/Spell";
 import { game } from "../index";
@@ -22,4 +26,25 @@ export function calculateSpellCost(minigame: any, spell: Spell): number {
 
 export function nextSantaLevelCost(): number {
     return Math.pow(game.santaLevel + 1, game.santaLevel + 1);
+}
+
+export function isMinigameReady(minigame: MinigameType) {
+    return game.isMinigameReady(game.Objects[minigame]);
+}
+
+export function isGodAlreadySlotted(god: God, slot: PantheonSlot): boolean {
+    if (!isMinigameReady(MinigameType.PANTHEON)) return false;
+
+    const minigame = game.Objects[BuildingType.TEMPLE].minigame;
+    return minigame.slot[slot] === minigame.gods[god]?.id;
+}
+
+export function assignGod(god: God, slot: PantheonSlot): boolean {
+    if (!isMinigameReady(MinigameType.PANTHEON)) return false;
+
+    const minigame = game.Objects[BuildingType.TEMPLE].minigame;
+    minigame.slotHovered = slot;
+    minigame.dragging = minigame.gods[god];
+    minigame.dropGod();
+    return true;
 }
