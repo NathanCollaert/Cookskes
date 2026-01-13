@@ -140,14 +140,6 @@ document.getElementById("clearLogsBtn")!.onclick = () => {
     sendCommand(BotCommand.CLEAR_LOGS);
 };
 
-document.getElementById("popWrinklersBtn")!.onclick = () => {
-    sendCommand(BotCommand.POP_WRINKLERS);
-};
-
-document.getElementById("openDragonBtn")!.onclick = () => {
-    sendCommand(BotCommand.OPEN_DRAGON);
-};
-
 function sendCommand(command: string) {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         const tabId = tabs[0]?.id;
