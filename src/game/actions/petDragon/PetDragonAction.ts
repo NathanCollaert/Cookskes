@@ -27,7 +27,7 @@ export class PetDragonAction extends Action {
         let ownedAfter: string[] = [];
 
         game.specialTab = "dragon";
-        while (this.clicksDone <= 1000) {
+        while (this.clicksDone < 1000) {
             game.ClickSpecialPic();
             ownedAfter = this.checkForDrops();
             if (ownedAfter.length > this.ownedBefore.length) {

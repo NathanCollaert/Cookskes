@@ -12,7 +12,7 @@ export class UpgradeClausAction extends Action {
 
     protected canExecute(): boolean {
         if (game.Upgrades["A festive hat"].bought === 0) return false;
-        if (game.Upgrades["Santa's dominion"].unlocked === 1) return false;
+        if (game.Upgrades["Santa's dominion"].bought === 1) return false;
         if (nextSantaLevelCost() > game.cookies) return false;
         return true;
     }

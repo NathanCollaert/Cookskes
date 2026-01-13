@@ -6,6 +6,8 @@ export class DragonEngine {
     static #instance: DragonEngine;
     private manualAura: DragonAura | null = null;
 
+    private constructor() { }
+
     public static get instance(): DragonEngine {
         if (!DragonEngine.#instance) {
             DragonEngine.#instance = new DragonEngine();
